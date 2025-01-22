@@ -1,5 +1,13 @@
 {
+  "name": "wtf-rag-technical-manual",
+  "version": "1.0.0",
+  "description": "WTF RAG 技术指南",
+  "type": "module",
+  "scripts": {
+    "preview": "docsify init ./docs"
+  },
   "dependencies": {
-    "docsify-cli": "^4.4.4"
+    "docsify-cli": "^4.4.4",
+    "express": "^4.21.2"
   }
 }

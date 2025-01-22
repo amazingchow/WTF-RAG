@@ -1,0 +1,44 @@
+name: Deploy to My Hostinger VPS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - name: Install Dependencies
+      run: npm install
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Deploy to Server
+      env:
+        HOST: ${{ secrets.REMOTE_HOST }}
+        USERNAME: ${{ secrets.REMOTE_USER }}
+        REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+      run: |
+        # 首先将本地的 node_modules 打包
+        tar -czf node_modules.tar.gz node_modules
+        
+        # 将打包文件复制到远程服务器
+        scp -o StrictHostKeyChecking=no node_modules.tar.gz $USERNAME@$HOST:$REMOTE_PATH/
+        
+        # 在远程服务器上执行部署
+        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "
+          cd $REMOTE_PATH &&
+          git pull origin master &&
+          # 解压 node_modules
+          tar -xzf node_modules.tar.gz &&
+          rm node_modules.tar.gz &&
+          (make re_run_site || make run_site)
+        "

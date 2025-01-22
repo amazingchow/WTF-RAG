@@ -7,28 +7,88 @@
   <meta name="description" content="RAG (检索增强生成) 技术指南">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- 支持渲染 mermaid -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+  <link rel="icon" href="_media/favicon.ico">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">内容正在加载中...</div>
   <script>
     window.$docsify = {
+      // 设置网站标题
       name: 'RAG 技术指南',
-      repo: '',
+      // 设置仓库地址
+      repo: 'https://github.com/amazingchow/WTF-RAG/',
+      // 加载侧边栏
       loadSidebar: true,
+      // 设置侧边栏的最大深度
       subMaxLevel: 3,
+      // 加载封面页
+      coverpage: true,
+      // 设置自动跳转到顶部
       auto2top: true,
+
+      // 全局搜索设置
       search: {
-        placeholder: '搜索',
-        noData: '没有找到结果',
+        maxAge: 86400000, // 缓存时间，单位毫秒
+        placeholder: {
+          '/zh-cn/': '搜索',
+          '/': 'Type to search',
+        },
+        noData: {
+          '/zh-cn/': '找不到结果',
+          '/': 'No Results',
+        },
         depth: 6
+      },
+
+      // 代码复制设置
+      copyCode: {
+        buttonText: {
+          '/zh-cn/': '点击复制',
+          '/': 'Copy to clipboard',
+        },
+        errorText: {
+          '/zh-cn/': '错误',
+          '/': 'Error',
+        },
+        successText: {
+          '/zh-cn/': '复制',
+          '/': 'Copied',
+        },
+      },
+
+      // 翻页设置
+      pagination: {
+        previousText: {
+          '/en/': 'PREV',
+          '/': '上一章节'
+        },
+        nextText: {
+          '/en/': 'NEXT',
+          '/': '下一章节'
+        },
+        crossChapter: true,
+        crossChapterText: true,
       }
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 支持渲染 mermaid -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <!-- 支持代码高亮 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
   <!-- 搜索插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <!-- 代码复制插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <!-- 图片放大插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <!-- 翻页插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 </body>
 </html>
